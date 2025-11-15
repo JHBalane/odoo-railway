@@ -24,8 +24,8 @@ exec odoo \
     --db_port=${DB_PORT} \
     --db_user=${DB_USER} \
     --db_password=${DB_PASSWORD} \
-    --admin-passwd=${ODOO_ADMIN_PASSWD} \
-    --data-dir=/var/lib/odoo \
+    --admin_passwd=${ODOO_ADMIN_PASSWD} \
+    --data_dir=/var/lib/odoo \
     --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
     --proxy-mode \
     --log-level=info \
