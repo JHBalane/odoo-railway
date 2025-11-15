@@ -1,0 +1,11 @@
+# Railway Umgebungsvariablen für Odoo Service
+# Kopiere diese Variablen in Railway → Odoo Service → Variables
+
+# PostgreSQL Connection (Reference Variables zu PostgreSQL Service)
+PGHOST=${{PostgreSQL.RAILWAY_PRIVATE_DOMAIN}}
+PGPORT=5432
+PGUSER=${{PostgreSQL.POSTGRES_USER}}
+PGPASSWORD=${{PostgreSQL.POSTGRES_PASSWORD}}
+
+# Odoo Admin Master Password (kannst du später ändern)
+ADMIN_PASSWD=TempOdoo2024!ChangeMeLater
