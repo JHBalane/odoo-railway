@@ -1,0 +1,37 @@
+# Odoo
+*.pyc
+*.pyo
+__pycache__/
+.DS_Store
+
+# Odoo filestore (sollte in Railway Volume sein)
+filestore/
+data/
+addons/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+
+# Database
+*.sql
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+.dockerignore
+
+# Railway
+.railway/
+
+# Odoo session
+sessions/

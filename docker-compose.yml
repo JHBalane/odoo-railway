@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Datenbank
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Odoo Application
+  odoo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8069:8069"
+    environment:
+      # PostgreSQL Connection
+      PGHOST: db
+      PGPORT: 5432
+      PGUSER: odoo
+      PGPASSWORD: odoo
+      PGDATABASE: postgres
+
+      # Odoo Admin Password
+      ADMIN_PASSWD: admin123
+
+      # Port
+      PORT: 8069
+    volumes:
+      # Persistent Odoo Data
+      - odoo-data:/var/lib/odoo
+      # Custom Addons (optional)
+      - ./addons:/mnt/extra-addons
+    command: odoo -c /etc/odoo/odoo.conf
+
+volumes:
+  odoo-db-data:
+  odoo-data:

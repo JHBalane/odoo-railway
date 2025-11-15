@@ -1,0 +1,20 @@
+# Railway Configuration für Odoo CRM
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "odoo -c /etc/odoo/odoo.conf"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Health Check
+[deploy.healthcheck]
+healthcheckPath = "/web/health"
+healthcheckTimeout = 100
+
+# Volumes für Persistent Storage
+[[deploy.volumes]]
+mountPath = "/var/lib/odoo"
+name = "odoo-data"
