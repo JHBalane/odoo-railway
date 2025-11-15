@@ -14,11 +14,12 @@ WORKDIR /opt/odoo
 # Erstelle notwendige Verzeichnisse
 RUN mkdir -p /var/lib/odoo /mnt/extra-addons
 
-# Kopiere Odoo Konfiguration
-COPY ./odoo.conf /etc/odoo/odoo.conf
+# Kopiere Startup Script
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Setze Berechtigungen
-RUN chown -R odoo:odoo /var/lib/odoo /mnt/extra-addons /etc/odoo
+RUN chmod +x /usr/local/bin/entrypoint.sh && \
+    chown -R odoo:odoo /var/lib/odoo /mnt/extra-addons
 
 # Wechsel zu odoo User
 USER odoo
@@ -28,4 +29,4 @@ USER odoo
 EXPOSE ${PORT:-8069}
 
 # Entrypoint - Railway startet automatisch
-CMD ["odoo", "-c", "/etc/odoo/odoo.conf"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
